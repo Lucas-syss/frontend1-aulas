@@ -1,3 +1,13 @@
-# Minimalist Habit Tracker
+# minimalist habit tracker.
 
-## with few clicks add habits, complete, get streaks, all low key.
+## with just a few clicks.. 
+
+### add , 
+
+### complete, 
+
+### get streaks, 
+
+### on your habits,
+
+### all low key.
