@@ -4,55 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>minimalist hb.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto:ital,wght@0,100;1,100&display=swap"
+        rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+    <title>Minimalist Habit Tracker</title>
 </head>
 
 <body>
-    <h1>minimalist habit tracker</h1>
+    <section class="intro">
+        <h1 class="animate__animated  animate__fadeInLeft">Minimalist Habit Tracker.</h1>
+        <h2 class="animate__animated  animate__fadeInRight">Welcome, to the last habit tracker you'll ever need.</h2>
+        <button onclick="showApp()">Start Now</button>
+    </section>
+    <main class="hidden">
+        <h1>Habit Tracker.</h1>
+        <section class="habits animate__animated animate__fadeInUp">
+            <h3>Habits ⚡️</h3>
+            <ul>
+                <li><input type="checkbox"> Habit 1</li>
+                <li><input type="checkbox"> Habit 2</li>
+                <li><input type="checkbox"> Habit 3</li>
+            </ul>
+        </section>
 
-    <div>
-        <h2>welcome, to the last habit tracker you'll ever need</h2>
-        <p>add habits,
-            complete them,
-            get stars for each task completed</p>
-        <button>start now</button>
-    </div>
+        <section class="streaks animate__animated animate__fadeInUp">
+            <h3>Streaks 🔥</h3>
+            <ul>
+                <li>Habit 1 streak: ⭐️⭐️⭐️</li>
+                <li>Habit 2 streak: ⭐️⭐️</li>
+                <li>Habit 3 streak: ⭐️⭐️</li>
+            </ul>
+        </section>
+
+        <div class="modal" id="habitModal">
+            <div class="modal-content">
+                <h3>Add a New Habit</h3>
+                <input type="text" id="habitTitle" placeholder="Habit Title" />
+                <div class="modal-buttons">
+                    <button onclick="addHabit()">Add</button>
+                    <button onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
     
-    <div>
-        <a href="">add habit</a>
-    </div>
-    <div>
-        <h2>habits ⚡️</h2>
-        <ul>
-            <li href="">habit 1
-                <input type="checkbox">
-            </li>
-
-            <li href="">habit 2
-                <input type="checkbox">
-            </li>
-
-            <li href="">habit 3
-                <input type="checkbox">
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h2>streaks 🔥</h2>
-        <ul>
-            <li>habit 1 streak: ⭐️⭐️⭐️</li>
-            <li>habit 2 streak: ⭐️⭐️</li>
-            <li>habit 3 streak: ⭐️⭐️</li>
-        </ul>
-    </div>
-    <div>
-        <h2>Graph 📊</h2>
-
-    </div>
+        <button class="fab" onclick="openModal()">+</button>
+    </main>
+    
+    <footer></footer>
 </body>
-
-<footer>
-
-</footer>
-
 </html>
