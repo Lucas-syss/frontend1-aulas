@@ -1,0 +1,34 @@
+{
+    "habit": [
+      {
+        "id": 1,
+        "name": "Exercise",
+        "time": "08:00",
+        "isdone": false,
+        "streak": 3
+      },
+      {
+        "id": 2,
+        "name": "Read",
+        "time": "10:00",
+        "isdone": false,
+        "streak": 2
+      },
+      {
+        "id": 3,
+        "name": "Meditate",
+        "time": "12:00",
+        "isdone": false,
+        "streak": 1
+      }
+      ,
+      {
+        "id": 4,
+        "name": "aa",
+        "time": "13:00",
+        "isdone": false,
+        "streak": 1
+      }
+    ]
+  }
+  

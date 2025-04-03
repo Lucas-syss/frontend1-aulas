@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
@@ -62,16 +56,76 @@ button:hover {
 }
 
 .hidden {
-    display: none;
+    display: none;  
 }
 
-main {
-    padding: 40px 20px;
-    max-width: 800px;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    border-radius: 10px;
-    width: 100%;
+/* Positioning for the cards container */
+.habits-grid {
+    position: relative;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.habit-card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    opacity: 0;  
+    visibility: hidden; 
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.habit-card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.habit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+.habit-name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.habit-streak {
+    font-size: 1.2rem;
+    color: #bbb;
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 1rem;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.habit-checkbox {
+    transform: scale(1.2);
+    accent-color: #4caf50;
+    cursor: pointer;
 }
 
 h3 {
@@ -81,7 +135,7 @@ h3 {
     margin-bottom: 20px;
 }
 
-h1 {
+.main-page-title {
     font-size: 3rem;
 }
 
@@ -113,32 +167,11 @@ footer {
     color: #bbb;
 }
 
-@media (max-width: 768px) {
-    .intro h1 {
-        font-size: 4rem;
-    }
-
-    .intro h2 {
-        font-size: 1.4rem;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    h3 {
-        font-size: 1.4rem;
-    }
-
-    li {
-        font-size: 1rem;
-    }
-}
-
 .fab {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 3rem;
+    right: 3rem;
+    padding: 15px 25px;
     background-color: #fff;
     color: #121212;
     font-size: 2rem;
@@ -154,7 +187,6 @@ footer {
     transform: scale(1.1);
 }
 
-/* Modal Styles */
 .modal {
     position: fixed;
     top: 0;
@@ -206,3 +238,27 @@ footer {
     background-color: #fff;
     color: #121212;
 }
+
+@media (max-width: 768px) {
+    .intro h1 {
+        font-size: 4rem;
+    }
+
+    .intro h2 {
+        font-size: 1.4rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    li {
+        font-size: 1rem;
+    }
+}
+
+

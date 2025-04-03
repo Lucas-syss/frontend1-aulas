@@ -1,13 +1,5 @@
 # minimalist habit tracker.
 
-## with just a few clicks.. 
+## known bugs
 
-### add , 
-
-### complete, 
-
-### get streaks, 
-
-### on your habits,
-
-### all low key.
+### only showing the first 2 habits in json and repeating between the 2
