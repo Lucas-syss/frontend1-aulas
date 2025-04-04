@@ -1,34 +1,32 @@
 {
-    "habit": [
-      {
-        "id": 1,
-        "name": "Exercise",
-        "time": "08:00",
-        "isdone": false,
-        "streak": 3
-      },
-      {
-        "id": 2,
-        "name": "Read",
-        "time": "10:00",
-        "isdone": false,
-        "streak": 2
-      },
-      {
-        "id": 3,
-        "name": "Meditate",
-        "time": "12:00",
-        "isdone": false,
-        "streak": 1
-      }
-      ,
-      {
-        "id": 4,
-        "name": "aa",
-        "time": "13:00",
-        "isdone": false,
-        "streak": 1
-      }
-    ]
-  }
-  
+  "habit": [
+    {
+      "id": 1,
+      "name": "habit 1",
+      "time": "08:00",
+      "isdone": false,
+      "streak": 3
+    },
+    {
+      "id": 2,
+      "name": "habit 2",
+      "time": "10:00",
+      "isdone": false,
+      "streak": 2
+    },
+    {
+      "id": 3,
+      "name": "habit 3",
+      "time": "12:00",
+      "isdone": false,
+      "streak": 4
+    },
+    {
+      "id": 4,
+      "name": "habit 4",
+      "time": "13:00",
+      "isdone": false,
+      "streak": 1
+    }
+  ]
+}

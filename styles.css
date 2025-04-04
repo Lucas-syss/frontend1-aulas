@@ -13,10 +13,8 @@ body {
 }
 
 .intro {
-    display: flex;
-    flex-direction: column;
+    align-content: center;
     align-items: center;
-    justify-content: center;
     height: 100vh;
     text-align: center;
     background-color: #121212;
@@ -56,10 +54,10 @@ button:hover {
 }
 
 .hidden {
-    display: none;  
+    display: none;
 }
 
-/* Positioning for the cards container */
+
 .habits-grid {
     position: relative;
     height: 400px;
@@ -72,18 +70,18 @@ button:hover {
 
 .habit-card {
     background-color: #1e1e1e;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 20px;
     width: 250px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: absolute;
     top: 0;
-    opacity: 0;  
-    visibility: hidden; 
+    opacity: 0;
+    visibility: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
 }
@@ -113,18 +111,32 @@ button:hover {
     margin-bottom: 10px;
 }
 
-label {
-    font-size: 1rem;
+.habit-time {
+    font-size: 1.2rem;
     color: #bbb;
-    display: flex;
+    margin-bottom: 10px;
+}
+
+label {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    font-size: 1rem;
+    color: #000000;
     align-items: center;
-    gap: 10px;
+    display: grid;
     cursor: pointer;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 5px 5px #0a0a0a;
+
+}
+
+label:hover {
+    background-color: #81ff75;
 }
 
 .habit-checkbox {
-    transform: scale(1.2);
-    accent-color: #4caf50;
+    opacity: 0;
     cursor: pointer;
 }
 
@@ -159,6 +171,8 @@ li input[type="checkbox"] {
     transform: scale(1.2);
     accent-color: #fff;
     margin-right: 10px;
+    display: grid;
+    place-content: center;
 }
 
 footer {
@@ -260,5 +274,3 @@ footer {
         font-size: 1rem;
     }
 }
-
-
