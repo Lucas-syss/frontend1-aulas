@@ -32,34 +32,40 @@ function renderHabits(habits) {
         const habit = habits[currentHabitIndex];
 
         habitsHTML += ` 
-            <div class="habit-card active" id="habit-${habit.id}">
-                <p class="habit-name">${habit.name}</p>
-                <p class="habit-time">${habit.time}</p>
-                <p class="habit-streak">Streak: ${habit.streak} day${habit.streak > 1 ? 's' : ''} ${habit.streak > 1 ? "🔥" : "🚀"} </p>
-                <label>
-                    <input type="checkbox" class="habit-checkbox" 
-                    ${habit.isdone ? 'checked' : ''} 
-                    onchange="markHabitDone(${habit.id}, this)">
-                </label>
-            </div>
+        <div class="habit-card active" id="habit-${habit.id}">
+            <p class="habit-name">${habit.name}</p>
+            <p class="habit-time">${habit.time}</p>
+            <p class="habit-streak">${habit.streak} day${habit.streak > 1 ? 's' : ''} streak ${habit.streak > 1 ? "🔥" : "🚀"}</p>
+                <div class="icon-container">
+                    <label class="finished" onclick="markHabitDone(${habit.id}, true)">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="text"></span>
+                    </label>
+                    <label class="unfinished" onclick="markHabitDone(${habit.id}, false)">
+                        <i class="fas fa-times-circle"></i>
+                        <span class="text"></span>
+                    </label>
+                </div>
+        </div>
         `;
     } else {
-        habitsHTML = `<p>No habits left to complete!</p>
-        <p>Good job!</p>`;
+        habitsHTML = `<p class="habits-finished">No habits left to complete!</p>
+        <p class="habits-finished">Good job!</p>`;
     }
 
     container.innerHTML = habitsHTML;
 }
 
-function markHabitDone(id, checkbox) {
+function markHabitDone(id, isFinished) {
     let habits = JSON.parse(localStorage.getItem('habits')) || [];
 
     const habitIndex = habits.findIndex(habit => habit.id === id);
 
     if (habitIndex !== -1) {
-        habits[habitIndex].isdone = checkbox.checked;
+        habits[habitIndex].isdone = isFinished;
 
-        if (checkbox.checked) {
+        // If the habit is marked as finished, it will be removed from the list
+        if (isFinished) {
             habits.splice(habitIndex, 1);
         }
 
@@ -67,7 +73,6 @@ function markHabitDone(id, checkbox) {
         renderHabits(habits);
     }
 }
-
 
 window.onload = () => {
     const introSeen = localStorage.getItem('introSeen');

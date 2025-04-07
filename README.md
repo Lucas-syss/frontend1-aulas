@@ -1,5 +1,5 @@
 # minimalist habit tracker.
 
-## known bugs
+## to do 
 
-### only showing the first 2 habits in json and repeating between the 2
+- add encrypt to names
