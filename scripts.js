@@ -1,22 +1,46 @@
+let currentHabitIndex = 0;  
 fetchHabits();
 
 async function fetchHabits() {
-    let habits = JSON.parse(localStorage.getItem('habits'));
-    if (!habits) {
-        try {
-            const response = await fetch("data.json");
-            const data = await response.json();
-            if (data.habit) {
-                habits = data.habit;
-                localStorage.setItem('habits', JSON.stringify(habits));
-            }
-        } catch (error) {
-            console.error("Error fetching habits:", error);
-        }
-    }
+    try {
+        const response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {
+            method: 'GET',
+            headers: {'content-type':'application/json'},
+        });
 
-    if (habits) {
-        renderHabits(habits);
+        if (response.ok) {
+            const habits = await response.json(); 
+            renderHabits(habits);
+        } else {
+            console.error("Error fetching habits:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error fetching habits:", error);
+    }
+}
+
+async function markHabitDone(id, isFinished) {
+    try {
+        const container = document.getElementById("habitsContainer");
+        const habitCard = document.getElementById(`habit-${id}`);
+
+        if (habitCard) {
+            habitCard.style.opacity = "0.5";
+        }
+
+        const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ isdone: isFinished })
+        });
+
+        if (response.ok) {
+            fetchHabits();
+        } else {
+            console.error("Error updating habit:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error updating habit:", error);
     }
 }
 
@@ -26,10 +50,11 @@ function renderHabits(habits) {
     if (!container) return;
 
     let habitsHTML = "";
-    const currentHabitIndex = habits.findIndex(habit => !habit.isdone);
+    const nextHabitIndex = habits.findIndex((habit, index) => !habit.isdone && index > currentHabitIndex);
 
-    if (currentHabitIndex !== -1) {
-        const habit = habits[currentHabitIndex];
+    if (nextHabitIndex !== -1) {
+        const habit = habits[nextHabitIndex];
+        currentHabitIndex = nextHabitIndex;
 
         habitsHTML += `
         <div class="habit-card active" id="habit-${habit.id}">
@@ -39,9 +64,8 @@ function renderHabits(habits) {
               ${habit.category} ${habit.category === "Health" ? "🏋️" : habit.category === "Productivity" ? "📈" : "🛌"} 
             </p>
             <p class="habit-streak">${habit.streak} day${habit.streak > 1 ? 's' : ''} streak ${habit.streak > 1 ? "🔥" : "🚀"}</p>
-            <div class="streak-progress-bar">
-                <div class="streak-progress" style="width: ${(habit.streak / 30) * 100}%"></div>
-            </div>
+
+            <div class="habit-streak"">Goal: ${habit.streak}/${habit.goal} days 🏁</div>
             <div class="icon-container">
                 <label class="finished" onclick="markHabitDone(${habit.id}, true)">
                     <i class="fas fa-check-circle"></i>
@@ -51,34 +75,14 @@ function renderHabits(habits) {
                 </label>
             </div>
         </div>`;
-
-        if (habit.streak >= habit.goal) {
-            alert(`Congrats! You’ve reached your streak goal for "${habit.name}"!`);
-        }
     } else {
         habitsHTML = `<p class="habits-finished">No habits left to complete!</p>
+        <p class="habits-finished">🎉 🎉 🎉</p>
         <p class="habits-finished">Good job!</p>`;
     }
 
     container.innerHTML = habitsHTML;
-}
-
-function markHabitDone(id, isFinished) {
-    let habits = JSON.parse(localStorage.getItem('habits')) || [];
-
-    const habitIndex = habits.findIndex(habit => habit.id === id);
-
-    if (habitIndex !== -1) {
-        habits[habitIndex].isdone = isFinished;
-
-        if (isFinished) {
-            habits.splice(habitIndex, 1);
-        }
-
-        localStorage.setItem('habits', JSON.stringify(habits));
-        renderHabits(habits);
-    }
-}
+}   
 
 window.onload = () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -144,33 +148,37 @@ document.getElementById('modalOverlay').addEventListener('click', (e) => {
     }
 });
 
-function addHabit() {
+async function addHabit() {
     const habitTitle = document.getElementById('habitTitle').value;
     const habitTime = document.getElementById('habitTime').value;
     const habitCategory = document.getElementById('habitCategory').value;
     const habitGoal = document.getElementById('habitGoal').value;
 
     if (habitTitle && habitTime) {
-        let habits = JSON.parse(localStorage.getItem('habits')) || [];
-
-        const nextId = habits.length > 0 ? Math.max(...habits.map(habit => habit.id)) + 1 : 1;
-
         const newHabit = {
-            id: nextId,
             name: habitTitle,
             time: habitTime,
             category: habitCategory,
             goal: habitGoal,
             isdone: false,
             streak: 0,
-            history: []
         };
-        habits.push(newHabit);
 
-        localStorage.setItem('habits', JSON.stringify(habits));
-        renderHabits(habits);
+        try {
+            const response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(newHabit),
+            });
 
-        closeModal();
+            if (response.ok) {
+                fetchHabits(); 
+                closeModal();
+            } else {
+                console.error("Error adding habit:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error adding habit:", error);
+        }
     }
 }
-
