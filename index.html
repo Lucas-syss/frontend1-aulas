@@ -21,16 +21,24 @@
         <h1 class="animate__animated animate__fadeInLeft">Minimalist Habit Tracker.</h1>
         <h2 class="animate__animated animate__fadeInRight">Welcome, to the last habit tracker you'll ever need.</h2>
         <button onclick="showApp()">Start Now</button>
+        <button onclick="toggleTheme()">Toggle Theme</button>
     </section>
     <h1 class="hidden main-page-title">Habit Tracker.</h1>
     <main class="hidden">
         <section class="habits-grid animate__animated animate__fadeInUp" id="habitsContainer">
         </section>
+        <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal" id="habitModal">
             <div class="modal-content">
                 <h3>Add a New Habit</h3>
                 <input type="text" id="habitTitle" placeholder="Habit Title" />
                 <input type="time" id="habitTime" placeholder="Habit Time" />
+                <select id="habitCategory">
+                    <option value="Health">Health 🏋️</option>
+                    <option value="Productivity">Productivity 📈</option>
+                    <option value="Relaxation">Relaxation 🛌</option>
+                </select>
+                <input type="number" id="habitGoal" placeholder="Streak Goal" />
                 <div class="modal-buttons">
                     <button onclick="addHabit()">Add</button>
                     <button onclick="closeModal()">Cancel</button>

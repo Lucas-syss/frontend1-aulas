@@ -10,6 +10,7 @@ body {
     height: 100vh;
     text-align: center;
     padding: 0 20px;
+    line-height: 1.5;
 }
 
 .intro {
@@ -26,6 +27,7 @@ body {
     font-size: 5rem;
     margin-bottom: 20px;
     font-weight: 300;
+    line-height: 1.2;
 }
 
 .intro h2 {
@@ -44,7 +46,7 @@ button {
     border-radius: 50px;
     cursor: pointer;
     border: none;
-    transition: background-color 0.3s ease-out, transform 0.2s ease;
+    transition: background-color 0.3s ease-out, transform 0.2s ease, background-color 0.4s ease;
 }
 
 button:hover {
@@ -57,25 +59,25 @@ button:hover {
     display: none;
 }
 
-
 .habits-grid {
     position: relative;
-    height: 400px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
 }
+
 .habit-card {
     background-color: #1e1e1e;
     border-radius: 15px;
-    padding: 15px;
-    width: 250px;
+    padding: 25px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -87,20 +89,28 @@ button:hover {
 }
 
 .habit-name {
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 600;
     color: #fff;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    text-align: center;
 }
 
 .habit-streak,
 .habit-time {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: #bbb;
+    margin-bottom: 5px;
 }
 
 .habit-streak {
     margin-top: 15px;
+}
+
+.habit-category {
+    font-size: 1.6rem;
+    color: #8cff82;
+    margin-bottom: 5px;
 }
 
 .icon-container {
@@ -113,7 +123,7 @@ label {
     background-color: #2a2a2a;
     border-radius: 10px;
     padding: 15px 15px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #fff;
     display: flex;
     align-items: center;
@@ -144,7 +154,7 @@ label.unfinished:hover {
 }
 
 .icon-container i {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .habit-checkbox-finished, .habit-checkbox-unfinished {
@@ -165,11 +175,11 @@ h3 {
 
 .main-page-title {
     font-size: 3rem;
-    position: fixed;  
-    top: 0;          
-    left: 0;        
-    margin-top: 0;    
-    padding: 30px; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    padding: 30px;
 }
 
 ul {
@@ -224,27 +234,63 @@ footer {
 
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    padding: 15px;
+    width: 300px;
+    background-color: #1e1e1e;
     display: none;
-    justify-content: center;
-    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: auto;
+}
+
+.modal.show {
+    display: flex;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
 }
 
 .modal-content {
-    background-color: #121212;
     color: white;
     padding: 20px;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.modal input {
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 999;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#habitTime::-webkit-calendar-picker-indicator {
+    background-color: #ffffff;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.modal input,
+.modal select {
     background-color: #333;
     color: white;
     border: none;
@@ -253,6 +299,25 @@ footer {
     border-radius: 5px;
     width: 100%;
     max-width: 300px;
+    font-size: 1.2rem;
+    height: 50px;
+    box-sizing: border-box;
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background-image: none; 
+}
+
+.modal input[type="text"],
+.modal select {
+    height: 50px;
+    line-height: 30px;
+}
+
+.modal select option {
+    background-color: #333;
+    color: white;
+    font-size: 1.2rem;
 }
 
 .modal-buttons {
@@ -267,11 +332,40 @@ footer {
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    height: 50px;
+    width: auto;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-buttons button:hover {
     background-color: #fff;
     color: #121212;
+}
+
+.light {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.light .habit-card {
+    background-color: #fff;
+    color: #121212;
+}
+
+.streak-progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+.streak-progress {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -293,5 +387,9 @@ footer {
 
     li {
         font-size: 1rem;
+    }
+
+    .habit-card {
+        width: 80%;
     }
 }

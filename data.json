@@ -2,31 +2,43 @@
   "habit": [
     {
       "id": 1,
-      "name": "habit 1",
+      "name": "Exercise",
       "time": "08:00",
       "isdone": false,
-      "streak": 3
+      "streak": 3,
+      "category": "Health",
+      "goal": 10,
+      "history": ["2025-04-01", "2025-04-02", "2025-04-03"]
     },
     {
       "id": 2,
-      "name": "habit 2",
+      "name": "Study",
       "time": "10:00",
       "isdone": false,
-      "streak": 2
+      "streak": 2,
+      "category": "Productivity",
+      "goal": 7,
+      "history": ["2025-04-01", "2025-04-02"]
     },
     {
       "id": 3,
-      "name": "habit 3",
+      "name": "Meditate",
       "time": "12:00",
       "isdone": false,
-      "streak": 4
+      "streak": 4,
+      "category": "Relaxation",
+      "goal": 15,
+      "history": ["2025-03-30", "2025-03-31", "2025-04-01", "2025-04-02"]
     },
     {
       "id": 4,
-      "name": "habit 4",
+      "name": "Eat Healthy",
       "time": "13:00",
       "isdone": false,
-      "streak": 1
+      "streak": 1,
+      "category": "Health",
+      "goal": 5,
+      "history": ["2025-04-01"]
     }
   ]
 }
