@@ -1,15 +1,15 @@
-let currentHabitIndex = 0;  
+let currentHabitIndex = 0;
 fetchHabits();
 
 async function fetchHabits() {
     try {
         const response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {
             method: 'GET',
-            headers: {'content-type':'application/json'},
+            headers: { 'content-type': 'application/json' },
         });
 
         if (response.ok) {
-            const habits = await response.json(); 
+            const habits = await response.json();
             renderHabits(habits);
         } else {
             console.error("Error fetching habits:", response.statusText);
@@ -21,16 +21,9 @@ async function fetchHabits() {
 
 async function markHabitDone(id, isFinished) {
     try {
-        const container = document.getElementById("habitsContainer");
-        const habitCard = document.getElementById(`habit-${id}`);
-
-        if (habitCard) {
-            habitCard.style.opacity = "0.5";
-        }
-
         const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ isdone: isFinished })
         });
 
@@ -50,7 +43,7 @@ function renderHabits(habits) {
     if (!container) return;
 
     let habitsHTML = "";
-    const nextHabitIndex = habits.findIndex((habit, index) => !habit.isdone && index > currentHabitIndex);
+    const nextHabitIndex = habits.findIndex((habit, index) => !habit.isdone && index >= currentHabitIndex);
 
     if (nextHabitIndex !== -1) {
         const habit = habits[nextHabitIndex];
@@ -58,19 +51,24 @@ function renderHabits(habits) {
 
         habitsHTML += `
         <div class="habit-card active" id="habit-${habit.id}">
+            <label class="edit" onclick="editHabit(${habit.id})">
+                <i class="fas fa-edit"></i>
+            </label>
+            <label class="delete" onclick="deleteHabit(${habit.id})">
+                <i class="fas fa-trash"></i>
+            </label>
             <p class="habit-name">${habit.name}</p>
             <p class="habit-time">${habit.time}</p>
             <p class="habit-category">
               ${habit.category} ${habit.category === "Health" ? "🏋️" : habit.category === "Productivity" ? "📈" : "🛌"} 
             </p>
             <p class="habit-streak">${habit.streak} day${habit.streak > 1 ? 's' : ''} streak ${habit.streak > 1 ? "🔥" : "🚀"}</p>
-
-            <div class="habit-streak"">Goal: ${habit.streak}/${habit.goal} days 🏁</div>
+            <div class="habit-streak ${habit.streak >= habit.goal ? 'goal-completed' : ''}">Goal: ${habit.streak}/${habit.goal} days 🏁</div>
             <div class="icon-container">
                 <label class="finished" onclick="markHabitDone(${habit.id}, true)">
                     <i class="fas fa-check-circle"></i>
                 </label>
-                <label class="unfinished" onclick="markHabitDone(${habit.id}, false)">
+                <label class="unfinished" onclick="handleUnfinished(${habit.id})">
                     <i class="fas fa-times-circle"></i>
                 </label>
             </div>
@@ -82,7 +80,14 @@ function renderHabits(habits) {
     }
 
     container.innerHTML = habitsHTML;
-}   
+}
+
+
+function handleUnfinished(id) {
+    markHabitDone(id, false);
+    currentHabitIndex++;
+    fetchHabits();
+}
 
 window.onload = () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -148,37 +153,104 @@ document.getElementById('modalOverlay').addEventListener('click', (e) => {
     }
 });
 
+function editHabit(id) {
+    fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`)
+        .then(response => response.json())
+        .then(habit => {
+            document.getElementById('habitTitle').value = habit.name;
+            document.getElementById('habitTime').value = habit.time;
+            document.getElementById('habitCategory').value = habit.category;
+            document.getElementById('habitGoal').value = habit.goal;
+
+            const modal = document.getElementById('habitModal');
+            modal.setAttribute('data-habit-id', habit.id);
+
+            document.getElementById('modalTitle').textContent = 'Edit Habit';
+            document.getElementById('modalButton').textContent = 'Confirm';
+
+            openModal();
+        })
+        .catch(error => console.error("Error fetching habit:", error));
+}
+
+async function deleteHabit(id) {
+    try {
+        const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            fetchHabits();
+        } else {
+            console.error("Error deleting habit:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error deleting habit:", error);
+    }
+}
+
+
+function openNewHabitModal() {
+    document.getElementById('habitTitle').value = '';
+    document.getElementById('habitTime').value = '';
+    document.getElementById('habitCategory').value = 'Health';
+    document.getElementById('habitGoal').value = '';
+
+    document.getElementById('modalTitle').textContent = 'Add a New Habit';
+    document.getElementById('modalButton').textContent = 'Add';
+
+    const modal = document.getElementById('habitModal');
+    modal.removeAttribute('data-habit-id');
+
+    openModal();
+}
+
 async function addHabit() {
     const habitTitle = document.getElementById('habitTitle').value;
     const habitTime = document.getElementById('habitTime').value;
     const habitCategory = document.getElementById('habitCategory').value;
     const habitGoal = document.getElementById('habitGoal').value;
 
-    if (habitTitle && habitTime) {
-        const newHabit = {
-            name: habitTitle,
-            time: habitTime,
-            category: habitCategory,
-            goal: habitGoal,
-            isdone: false,
-            streak: 0,
-        };
+    const habitId = document.getElementById('habitModal').getAttribute('data-habit-id');
+    const isEditing = habitId !== null;
 
-        try {
-            const response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(newHabit),
+    const habitData = {
+        name: habitTitle,
+        time: habitTime,
+        category: habitCategory,
+        goal: habitGoal,
+        isdone: false,
+        streak: 0,
+    };
+
+    try {
+        let response;
+
+        if (isEditing) {
+            const habit = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${habitId}`).then(res => res.json());
+            habitData.streak = habit.streak;
+
+            response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${habitId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(habitData),
             });
-
-            if (response.ok) {
-                fetchHabits(); 
-                closeModal();
-            } else {
-                console.error("Error adding habit:", response.statusText);
-            }
-        } catch (error) {
-            console.error("Error adding habit:", error);
+        } else {
+            response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(habitData),
+            });
         }
+
+        if (response.ok) {
+            fetchHabits();
+            closeModal();
+        } else {
+            console.error("Error:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error:", error);
     }
 }

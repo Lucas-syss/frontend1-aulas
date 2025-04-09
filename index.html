@@ -30,7 +30,7 @@
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal" id="habitModal">
             <div class="modal-content">
-                <h3>Add a New Habit</h3>
+                <h3 id="modalTitle">Add a New Habit</h3>
                 <input type="text" id="habitTitle" placeholder="Habit Title" />
                 <input type="time" id="habitTime" placeholder="Habit Time" />
                 <select id="habitCategory">
@@ -40,13 +40,13 @@
                 </select>
                 <input type="number" id="habitGoal" placeholder="Streak Goal" />
                 <div class="modal-buttons">
-                    <button class="add-btn" onclick="addHabit()">Add</button>
+                    <button id="modalButton" class="add-btn" onclick="addHabit()">Add</button>
                     <button class="cancel-btn" onclick="closeModal()">Cancel</button>
                 </div>
             </div>
         </div>
 
-        <button class="fab" onclick="openModal()">Add a new habit</button>
+        <button class="fab" onclick="openNewHabitModal()">Add a new habit.</button>
     </main>
 
     <footer></footer>
