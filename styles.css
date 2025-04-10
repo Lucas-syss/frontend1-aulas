@@ -83,10 +83,12 @@ button:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/*
 .habit-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
+*/
 
 .habit-name {
     font-size: 2.4rem;
@@ -394,18 +396,6 @@ footer {
     color: #121212;
 }
 
-.streak-progress-bar {
-    width: 100%;
-    height: 8px;
-    background-color: #ddd;
-    border-radius: 5px;
-}
-
-.streak-progress {
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 5px;
-}
 
 .goal-completed {
     color: rgb(140, 255, 130);

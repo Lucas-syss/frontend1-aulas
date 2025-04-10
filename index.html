@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="image.svg" type="image/x-icon">
     <script src="scripts.js" defer></script>
     <title>Minimalist Habit Tracker</title>
 </head>
@@ -24,6 +25,7 @@
         <button onclick="toggleTheme()">Toggle Theme</button>
     </section>
     <h1 class="hidden main-page-title">Habit Tracker.</h1>
+    <div id="quoteContainer" class="quote-container"></div>
     <main class="hidden">
         <section class="habits-grid animate__animated animate__fadeInUp" id="habitsContainer">
         </section>
@@ -31,7 +33,7 @@
         <div class="modal" id="habitModal">
             <div class="modal-content">
                 <h3 id="modalTitle">Add a New Habit</h3>
-                <input type="text" id="habitTitle" placeholder="Habit Title" />
+                <input type="text" id="habitTitle" maxlength="20" placeholder="Habit Title" />
                 <input type="time" id="habitTime" placeholder="Habit Time" />
                 <select id="habitCategory">
                     <option value="Health">Health 🏋️</option>

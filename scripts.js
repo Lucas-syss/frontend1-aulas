@@ -21,10 +21,24 @@ async function fetchHabits() {
 
 async function markHabitDone(id, isFinished) {
     try {
+        const habitResponse = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`);
+        const habit = await habitResponse.json();
+
+       
+        let newStreak = habit.streak;
+        if (isFinished && !habit.isdone) {
+            newStreak += 1; 
+        } else if (!isFinished && habit.isdone) {
+            newStreak = Math.max(0, newStreak - 1); 
+        }
+
         const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ isdone: isFinished })
+            body: JSON.stringify({
+                isdone: isFinished,
+                streak: newStreak,
+            })
         });
 
         if (response.ok) {
@@ -39,8 +53,13 @@ async function markHabitDone(id, isFinished) {
 
 function renderHabits(habits) {
     const container = document.getElementById("habitsContainer");
-
     if (!container) return;
+
+    habits.sort((a, b) => {
+        const timeA = new Date(`1970-01-01T${a.time.padStart(5, '0')}:00`);
+        const timeB = new Date(`1970-01-01T${b.time.padStart(5, '0')}:00`);
+        return timeA - timeB;
+    });
 
     let habitsHTML = "";
     const nextHabitIndex = habits.findIndex((habit, index) => !habit.isdone && index >= currentHabitIndex);
@@ -89,6 +108,41 @@ function handleUnfinished(id) {
     fetchHabits();
 }
 
+async function fetchQuote() {
+    try {
+        const response = await fetch("https://zenquotes.io/api/random");
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch quote: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        const quoteContainer = document.getElementById("quoteContainer");
+        if (quoteContainer) {
+            quoteContainer.innerHTML = `
+                <p class="quote-text">${data[0].q}</p>
+                <p class="quote-author">- ${data[0].a}</p>
+            `;
+        }
+    } catch (error) {
+        console.error("Error fetching quote:", error);
+    }
+}
+
+
+
+function renderQuote(data) {
+    const quoteContainer = document.getElementById('quoteContainer');
+    quoteContainer.innerHTML = `
+        <p>"${data.content}"</p>
+        <p>- ${data.author}</p>
+    `;
+}
+
+
+
+
 window.onload = () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.body.classList.add(savedTheme);
@@ -99,6 +153,7 @@ window.onload = () => {
         document.querySelector('.intro').style.display = 'none';
         document.querySelector('main').classList.remove('hidden');
         document.querySelector('.main-page-title').classList.remove('hidden');
+        fetchQuote();
     } else {
         document.querySelector('.intro').style.display = 'block';
         document.querySelector('main').classList.add('hidden');
@@ -179,8 +234,8 @@ async function deleteHabit(id) {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         });
-
-        if (response.ok) {
+        var result = confirm("Are you sure you want to delete this habit? :(")
+        if (result) {
             fetchHabits();
         } else {
             console.error("Error deleting habit:", response.statusText);
@@ -211,6 +266,11 @@ async function addHabit() {
     const habitTime = document.getElementById('habitTime').value;
     const habitCategory = document.getElementById('habitCategory').value;
     const habitGoal = document.getElementById('habitGoal').value;
+
+    if (habitTitle.length > 20) {
+        alert("Habit title must be 20 characters or less");
+        return
+    }
 
     const habitId = document.getElementById('habitModal').getAttribute('data-habit-id');
     const isEditing = habitId !== null;
