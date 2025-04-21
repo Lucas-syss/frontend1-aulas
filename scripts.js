@@ -1,6 +1,18 @@
 let currentHabitIndex = 0;
 fetchHabits();
 
+function updateClock() {
+    const clock = document.getElementById("clock");
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    clock.textContent = `${hours}:${minutes} ⏲`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
 async function fetchHabits() {
     try {
         const response = await fetch("https://67f56877913986b16fa47860.mockapi.io/habits", {

@@ -13,6 +13,14 @@ body {
     line-height: 1.5;
 }
 
+
+.clock {
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+
 .intro {
     align-content: center;
     align-items: center;
@@ -401,28 +409,43 @@ footer {
     color: rgb(140, 255, 130);
 }
 
-@media (max-width: 768px) {
-    .intro h1 {
-        font-size: 4rem;
-    }
-
-    .intro h2 {
-        font-size: 1.4rem;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    h3 {
-        font-size: 1.4rem;
-    }
-
-    li {
-        font-size: 1rem;
-    }
-
-    .habit-card {
-        width: 80%;
-    }
+.wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .wrapper {
+      transform: scale(0.9);
+      align-content: center;
+    }
+    .fab{
+        transform: scale(0.7);
+    }
+    .fab:hover{
+        transform: scale(0.7);
+    }
+    .clock {
+        margin-bottom: -25px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    
+    .wrapper {
+        transform: scale(0.8);
+        align-content: center;
+    }
+
+    .fab{
+        align-self: center;
+        transform: scale(0.8);
+    }
+    .fab:hover{
+        transform: scale(0.7);
+    }
+    .clock {
+        margin-bottom: -25px;
+    }
+  }
