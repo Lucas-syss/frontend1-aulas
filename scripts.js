@@ -75,13 +75,15 @@ function renderHabits(habits) {
 
     let habitsHTML = "";
     const nextHabitIndex = habits.findIndex((habit, index) => !habit.isdone && index >= currentHabitIndex);
-
+    
     if (nextHabitIndex !== -1) {
         const habit = habits[nextHabitIndex];
         currentHabitIndex = nextHabitIndex;
+        const progressPercentage = (habit.streak / habit.goal) * 100;
 
         habitsHTML += `
         <div class="habit-card active" id="habit-${habit.id}">
+            <progress-circle progress="${progressPercentage}" size="100"></progress-circle>
             <label class="edit" onclick="editHabit(${habit.id})">
                 <i class="fas fa-edit"></i>
             </label>

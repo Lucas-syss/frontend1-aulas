@@ -18,8 +18,9 @@ body {
     font-size: 3rem;
     font-weight: 500;
     position: absolute;
-    right: 1.8rem;
-    top: 2.5rem;
+    right: 0rem;
+    top: 0rem;
+    padding: 30px;
 }
 
 .quote-container {
@@ -53,9 +54,9 @@ body {
     opacity: 0.9;
 }
 
-button {
+.intro button {
     background-color: #fff;
-    color: #121212;
+    color: #333333;
     font-size: 1.2rem;
     padding: 15px 30px;
     border-radius: 50px;
@@ -68,6 +69,32 @@ button:hover {
     background-color: #636363;
     color: #fff;
     transform: scale(1.05);
+}
+
+
+#themeToggle {
+    position: absolute;
+    top: 3rem;
+    right: 11rem;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+#themeToggle:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+#themeToggle:active {
+    background-color: #222;
+    transform: scale(1);
 }
 
 .hidden {
@@ -98,6 +125,18 @@ button:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.progress-circle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 5px solid #ddd;
+    background: conic-gradient(#4caf50 var(--progress), #ddd 0%);
+    transition: background 0.3s ease;
+}
+
 /*
 .habit-card:hover {
     transform: translateY(-5px);
@@ -126,7 +165,7 @@ button:hover {
 
 .habit-category {
     font-size: 1.6rem;
-    color: #8cff82;
+    color: #09ff00;
     margin-bottom: 5px;
 }
 
@@ -156,18 +195,12 @@ label.delete {
     right: 10px;
     padding: 8px 15px;
     font-size: 1.4rem;
-    color: #fff;
-    background-color: #333;
+    color: #333333;
+    background-color: #fff;
     border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-label.edit:hover,
-label.delete:hover {
-    background-color: #636363;
-    transform: scale(1.1);
 }
 
 label.edit {
@@ -382,6 +415,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 
 }
 
@@ -411,9 +445,29 @@ footer {
     color: #121212;
 }
 
+.light .habit-name {
+    color: #333333;
+}
+
+.light .habit-time {
+    color: #333333;
+}
+
+.light .habit-streak {
+    color: #333333;
+}
+.light .goal-completed {
+    color: #09ff00;
+}
+
+.light .fab {
+    color: #fff;
+    background-color: #333333;
+}
+
 
 .goal-completed {
-    color: rgb(140, 255, 130);
+    color: #09ff00;
 }
 
 .wrapper {
