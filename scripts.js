@@ -1,3 +1,5 @@
+
+
 let currentHabitIndex = 0;
 fetchHabits();
 
@@ -66,6 +68,10 @@ async function markHabitDone(id, isFinished) {
 function renderHabits(habits) {
     const container = document.getElementById("habitsContainer");
     if (!container) return;
+
+    // maybe implement ?
+    //const habitsRemaining = habits.filter(habit => !habit.isDone).length;
+    //<p class="habitsRemaining">${currentHabitIndex}/${habitsRemaining}</p>
 
     habits.sort((a, b) => {
         const timeA = new Date(`1970-01-01T${a.time.padStart(5, '0')}:00`);
@@ -177,10 +183,21 @@ window.onload = () => {
 function toggleTheme() {
     const currentTheme = localStorage.getItem('theme') || 'dark';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
     document.body.classList.remove(currentTheme);
     document.body.classList.add(newTheme);
     localStorage.setItem('theme', newTheme);
+
+    const icon = document.querySelector('#themeToggle i');
+    if (newTheme === 'dark') {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
 }
+
 
 function showApp() {
     localStorage.setItem('introSeen', 'true');
@@ -243,21 +260,41 @@ function editHabit(id) {
 }
 
 async function deleteHabit(id) {
-    try {
-        const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-        });
-        var result = confirm("Are you sure you want to delete this habit? :(")
-        if (result) {
-            fetchHabits();
-        } else {
-            console.error("Error deleting habit:", response.statusText);
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            const response = await fetch(`https://67f56877913986b16fa47860.mockapi.io/habits/${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.ok) {
+                await Swal.fire(
+                    'Deleted!',
+                    'Your habit has been deleted.',
+                    'success'
+                );
+                fetchHabits();
+            } else {
+                Swal.fire('Error!', 'Failed to delete the habit.', 'error');
+                console.error("Error deleting habit:", response.statusText);
+            }
+        } catch (error) {
+            Swal.fire('Error!', 'Something went wrong.', 'error');
+            console.error("Error deleting habit:", error);
         }
-    } catch (error) {
-        console.error("Error deleting habit:", error);
     }
 }
+
 
 
 function openNewHabitModal() {

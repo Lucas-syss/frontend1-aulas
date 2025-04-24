@@ -13,6 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="image.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="web-components.js" defer></script>
     <script src="scripts.js" defer></script>
     <title>Minimalist Habit Tracker</title>
@@ -25,12 +26,14 @@
         <button onclick="showApp()">Start Now</button>
     </section>
     <h1 class="hidden main-page-title">Minimalist Habit Tracker.</h1>
+    <button id="themeToggle" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+    </button>
     <div id="clock" class="clock"></div>
 
     
-    <main class="hidden">
+    <main class="hidden habit-container">
         <div class="wrapper">
-            <button id="themeToggle" onclick="toggleTheme()">Change Theme</button>
             <section class="habits-grid animate__animated animate__fadeInUp" id="habitsContainer">
             </section>
             <div id="quoteContainer" class="quote-container"></div>
