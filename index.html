@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Track and build better habits effortlessly with the Minimalist Habit Tracker — simple, clean, and powerful habit tracking for your daily routine." />
+    <link rel="manifest" href="manifest.json" />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto:ital,wght@0,100;1,100&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="image.svg" type="image/x-icon">
@@ -21,12 +22,12 @@
 
 <body>
     <section class="intro">
-        <h1 class="animate__animated animate__fadeInLeft">Minimalist Habit Tracker.</h1>
-        <h2 class="animate__animated animate__fadeInRight">Welcome, to the last habit tracker you'll ever need.</h2>
+        <h1>Minimalist Habit Tracker.</h1>
+        <h2>Welcome, to the last habit tracker you'll ever need.</h2>
         <button onclick="showApp()">Start Now</button>
     </section>
     <h1 class="hidden main-page-title">Minimalist Habit Tracker.</h1>
-    <button id="themeToggle" onclick="toggleTheme()">
+    <button id="themeToggle" aria-label="themeToggleButton" onclick="toggleTheme()">
         <i class="fas fa-sun"></i>
     </button>
     <div id="clock" class="clock"></div>
@@ -34,7 +35,7 @@
     
     <main class="hidden habit-container">
         <div class="wrapper">
-            <section class="habits-grid animate__animated animate__fadeInUp" id="habitsContainer">
+            <section class="habits-grid" id="habitsContainer">
             </section>
             <div id="quoteContainer" class="quote-container"></div>
         
