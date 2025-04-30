@@ -101,10 +101,10 @@ button:hover {
     display: none;
 }
 
-.habit-container{
+.habit-container {
     position: absolute;
     top: 50%;
-    left:50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -485,6 +485,7 @@ footer {
 .light .habit-streak {
     color: #333333;
 }
+
 .light .goal-completed {
     color: #09ff00;
 }
@@ -493,15 +494,20 @@ footer {
     color: #fff;
     background-color: #333333;
 }
+
 .light .modal {
     background-color: white;
 
 }
 
-.light .modal h3{
+.light .modal h3 {
     color: #333333;
 }
-.light .modal input[type="text"], .modal select, .modal input[type="time"], .modal input[type="number"]{
+
+.light .modal input[type="text"],
+.light .modal select,
+.light .modal input[type="time"],
+.light .modal input[type="number"] {
     background-color: #e9e9e9;
     color: #333333;
     border: #121212;
@@ -522,6 +528,7 @@ footer {
     #themeToggle {
         display: none;
     }
+
     .clock {
         display: none;
     }

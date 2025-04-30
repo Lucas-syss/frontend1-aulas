@@ -113,9 +113,7 @@ function renderHabits(habits) {
             </div>
         </div>`;
     } else {
-        habitsHTML = `<p class="habits-finished">No habits left to complete!</p>
-        <p class="habits-finished">🎉 🎉 🎉</p>
-        <p class="habits-finished">Good job!</p>`;
+        habitsHTML = `<p class="habits-finished">No habits left to complete!</p>`;
     }
 
     container.innerHTML = habitsHTML;
@@ -128,35 +126,6 @@ function handleUnfinished(id) {
     fetchHabits();
 }
 
-//remove for better lighthouse score
-async function fetchQuote() {
-    try {
-        const response = await fetch("https://api.quotable.io/random");
-        if (!response.ok) throw new Error("Network response was not ok.");
-
-        const data = await response.json();
-
-        const quoteContainer = document.getElementById("quoteContainer");
-        if (quoteContainer) {
-            quoteContainer.innerHTML = `
-                <p class="quote-text">${data.content}</p>
-                <p class="quote-author">- ${data.author}</p>
-            `;
-        }
-    } catch {
-        // Silently fail
-        const quoteContainer = document.getElementById("quoteContainer");
-        if (quoteContainer) quoteContainer.innerHTML = '';
-    }
-}
-
-function renderQuote(data) {
-    const quoteContainer = document.getElementById('quoteContainer');
-    quoteContainer.innerHTML = `
-        <p>"${data.content}"</p>
-        <p>- ${data.author}</p>
-    `;
-}
 
 window.onload = () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -168,7 +137,6 @@ window.onload = () => {
         document.querySelector('.intro').style.display = 'none';
         document.querySelector('main').classList.remove('hidden');
         document.querySelector('.main-page-title').classList.remove('hidden');
-        fetchQuote(); // remove for better lighthouse score
     } else {
         document.querySelector('.intro').style.display = 'block';
         document.querySelector('main').classList.add('hidden');
