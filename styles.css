@@ -539,13 +539,28 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+    .intro h1 {
+        transform: scale(0.7);
+    }
+
+    .intro h2 {
+        transform: scale(0.7);
+    }
+
+    .intro button {
+        transform: scale(1);
+    }
+
     .wrapper {
         transform: scale(0.9);
         align-content: center;
     }
 
     .fab {
-        transform: scale(0.8);
+
+        align-self: center;
+        top: 3rem;
     }
 
     .fab:hover {
@@ -559,14 +574,26 @@ footer {
 
 @media (max-width: 480px) {
 
+    .intro h1 {
+        transform: scale(0.8);
+    }
+
+    .intro h2 {
+        transform: scale(0.8);
+    }
+
+    .intro button {
+        transform: scale(1);
+    }
+    
     .wrapper {
         transform: scale(0.8);
         align-content: center;
     }
 
     .fab {
+        top: 3rem;
         align-self: center;
-        transform: scale(0.8);
     }
 
     .fab:hover {
