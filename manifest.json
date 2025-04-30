@@ -1,7 +1,7 @@
 {
     "name": "Habit Tracker",
     "short_name": "MHT",
-    "start_url": "/",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#333",
     "theme_color": "white",

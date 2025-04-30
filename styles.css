@@ -452,6 +452,23 @@ footer {
     color: #333;
 }
 
+.light .intro {
+    background-color: #f5f5f5;
+}
+
+.light .intro h1 {
+    color: #333;
+}
+
+.light .intro h2 {
+    color: #3f3f3f;
+}
+
+.light .intro button {
+    background-color: #333;
+    color: white;
+}
+
 .light .habit-card {
     background-color: #fff;
     color: #121212;
