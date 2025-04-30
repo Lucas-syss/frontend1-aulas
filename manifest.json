@@ -4,7 +4,7 @@
     "start_url": "/frontend1-aulas/index.html",
     "display": "standalone",
     "background_color": "#333",
-    "theme_color": "white",
+    "theme_color": "#121212",
     "icons": [
         {
             "src": "image.svg",
