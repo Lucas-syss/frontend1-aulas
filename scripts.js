@@ -69,10 +69,6 @@ function renderHabits(habits) {
     const container = document.getElementById("habitsContainer");
     if (!container) return;
 
-    // maybe implement ?
-    //const habitsRemaining = habits.filter(habit => !habit.isDone).length;
-    //<p class="habitsRemaining">${currentHabitIndex}/${habitsRemaining}</p>
-
     habits.sort((a, b) => {
         const timeA = new Date(`1970-01-01T${a.time.padStart(5, '0')}:00`);
         const timeB = new Date(`1970-01-01T${b.time.padStart(5, '0')}:00`);
